@@ -25,7 +25,7 @@ class CryptoCurrency
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $symbole;
+    private $symbol;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -69,14 +69,14 @@ class CryptoCurrency
         return $this;
     }
 
-    public function getSymbole(): ?string
+    public function getsymbol(): ?string
     {
-        return $this->symbole;
+        return $this->symbol;
     }
 
-    public function setSymbole(?string $symbole): self
+    public function setsymbol(?string $symbol): self
     {
-        $this->symbole = $symbole;
+        $this->symbol = $symbol;
 
         return $this;
     }
@@ -105,14 +105,15 @@ class CryptoCurrency
         return $this;
     }
 
-    public function getMarketcap(): ?string
+    public function getMarketcap(): ?float
     {
         return $this->marketcap;
     }
 
-    public function setMarketcap(?string $marketcup): self
+    public function setMarketcap(?float $marketcap): self
     {
-        $this->marketcup = $marketcup;
+
+        $this->marketcap = $marketcap;
 
         return $this;
     }

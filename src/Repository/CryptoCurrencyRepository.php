@@ -3,6 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\CryptoCurrency;
+use App\Service\CryptoCurrencyService;
+use Doctrine\ORM\EntityManagerInterface;
+
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -73,4 +76,10 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function resetDatabase(EntityManagerInterface $em)
+    {
+        $em->createQuery('DELETE FROM App\Entity\CryptoCurrency')->execute();
+    }
 }

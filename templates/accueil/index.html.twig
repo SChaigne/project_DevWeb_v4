@@ -15,8 +15,8 @@
   <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">Name</th>
-      <th scope="col">Symbol</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Symbole</th>
       <th scope="col">Price</th>
       <th scope="col">Market Cap</th>
     </tr>
@@ -24,11 +24,11 @@
   <tbody>
     {% for crypto in cryptos %}
     <tr class="table-primary">
-      <th scope="row">    {{crypto.id}}</th>
-      <td>{{crypto.name}} - {{crypto.symbol}}</td>
+      <th scope="row">{{crypto.id}}</th>
+      <td>{{crypto.name}}</td>
       <td>{{crypto.symbol}}</td>
-      <td>{{crypto.quote.EUR.price}}</td>
-      <td>{{crypto.quote.EUR.market_cap}}</td>
+      <td>{{crypto.price}}</td>
+      <td>{{crypto.marketcap}}</td>
     </tr>
     {% endfor %}
   </tbody>

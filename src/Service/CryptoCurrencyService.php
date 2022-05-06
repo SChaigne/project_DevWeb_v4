@@ -3,9 +3,16 @@
 namespace App\Service;
 
 use App\Entity\CryptoCurrency;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 class CryptoCurrencyService
 {
+    public function __construct(EntityManagerInterface $leEntityManager)
+    {
+        $this->em = $leEntityManager;
+    }
+
     public function getAllCrypto()
     {
 
@@ -30,22 +37,22 @@ class CryptoCurrencyService
         curl_close($curl);
     }
 
-    public function storeDataDB()
+    public function insertDataAPIBD(CryptoCurrencyService $cryptoService, $emInsert)
     {
-        $cryptos = $this->getAllCrypto();
-        for ($i = 0; $i < count($cryptos); $i++) {
-            $crypto = new CryptoCurrency();
+        $cryptosData = $cryptoService->getAllCrypto()->data;
+        foreach ($cryptosData as $crypto => $value) {
+            $cryptoInsert = new CryptoCurrency();
             // $crypto->setCategory();
             // $crypto->setNbFollowTt();
-            $crypto->setMarketcap($crypto->quote->EUR->market_cap);
             // $crypto->setDescription();
-            $crypto->setName($crypto->name);
-            $crypto->setPrice($crypto->quote->EUR->price);
-            $crypto->setSymbole($crypto->symbol);
+            // dd($value);
+            $cryptoInsert->setMarketcap($value->quote->EUR->market_cap);
+            $cryptoInsert->setName($value->name);
+            $cryptoInsert->setPrice($value->quote->EUR->price);
+            $cryptoInsert->setSymbol($value->symbol);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persisit($crypto);
-            $em->flush();
+            $emInsert->persist($cryptoInsert);
+            $emInsert->flush();
         }
     }
 }
