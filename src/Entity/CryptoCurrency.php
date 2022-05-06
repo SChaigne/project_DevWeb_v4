@@ -40,17 +40,17 @@ class CryptoCurrency
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $marketcup;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $category;
+    private $marketcap;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_follow_tt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $category;
 
     public function getId(): ?int
     {
@@ -105,12 +105,12 @@ class CryptoCurrency
         return $this;
     }
 
-    public function getMarketcup(): ?string
+    public function getMarketcap(): ?string
     {
-        return $this->marketcup;
+        return $this->marketcap;
     }
 
-    public function setMarketcup(?string $marketcup): self
+    public function setMarketcap(?string $marketcup): self
     {
         $this->marketcup = $marketcup;
 

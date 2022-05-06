@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CG - Accueil{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>GroovyCrypto {{ controller_name }}</h1>
+
+   <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Symbol</th>
+      <th scope="col">Price</th>
+      <th scope="col">Market Cap</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for crypto in cryptos %}
+    <tr class="table-primary">
+      <th scope="row">    {{crypto.id}}</th>
+      <td>{{crypto.name}} - {{crypto.symbol}}</td>
+      <td>{{crypto.symbol}}</td>
+      <td>{{crypto.quote.EUR.price}}</td>
+      <td>{{crypto.quote.EUR.market_cap}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
