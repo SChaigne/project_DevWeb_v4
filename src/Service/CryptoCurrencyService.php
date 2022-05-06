@@ -30,22 +30,22 @@ class CryptoCurrencyService
         curl_close($curl);
     }
 
-    public function storeDataDB()
-    {
-        $cryptos = $this->getAllCrypto();
-        for ($i = 0; $i < count($cryptos); $i++) {
-            $crypto = new CryptoCurrency();
-            // $crypto->setCategory();
-            // $crypto->setNbFollowTt();
-            $crypto->setMarketcap($crypto->quote->EUR->market_cap);
-            // $crypto->setDescription();
-            $crypto->setName($crypto->name);
-            $crypto->setPrice($crypto->quote->EUR->price);
-            $crypto->setSymbole($crypto->symbol);
+    // public function storeDataDB()
+    // {
+    //     $cryptos = $this->getAllCrypto();
+    //     for ($i = 0; $i < count($cryptos); $i++) {
+    //         $crypto = new CryptoCurrency();
+    //         // $crypto->setCategory();
+    //         // $crypto->setNbFollowTt();
+    //         $crypto->setMarketcap($crypto->quote->EUR->market_cap);
+    //         // $crypto->setDescription();
+    //         $crypto->setName($crypto->name);
+    //         $crypto->setPrice($crypto->quote->EUR->price);
+    //         $crypto->setSymbole($crypto->symbol);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persisit($crypto);
-            $em->flush();
-        }
-    }
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->persisit($crypto);
+    //         $em->flush();
+    //     }
+    // }
 }

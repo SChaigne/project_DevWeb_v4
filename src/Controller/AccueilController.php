@@ -16,7 +16,7 @@ class AccueilController extends AbstractController
     public function index(CryptoCurrencyService $cryptoService): Response
     {
         $cryptos = ($cryptoService->getAllCrypto());
-        $cryptoService->storeDataDB();
+        //$cryptoService->storeDataDB();
 
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
