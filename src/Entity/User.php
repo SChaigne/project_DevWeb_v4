@@ -20,12 +20,12 @@ class User
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $nom;
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $prenom;
+    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,17 +35,17 @@ class User
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $adresse;
+    private $adress;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $telephone;
+    private $phone_number;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date_naissance;
+    private $birthday_date;
 
     /**
      * @ORM\Column(type="boolean")
@@ -55,30 +55,6 @@ class User
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): self
-    {
-        $this->prenom = $prenom;
-
-        return $this;
     }
 
     public function getEmail(): ?string
@@ -93,42 +69,6 @@ class User
         return $this;
     }
 
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?string $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getTelephone(): ?int
-    {
-        return $this->telephone;
-    }
-
-    public function setTelephone(int $telephone): self
-    {
-        $this->telephone = $telephone;
-
-        return $this;
-    }
-
-    public function getDateNaissance(): ?\DateTimeInterface
-    {
-        return $this->date_naissance;
-    }
-
-    public function setDateNaissance(?\DateTimeInterface $date_naissance): self
-    {
-        $this->date_naissance = $date_naissance;
-
-        return $this;
-    }
-
     public function getIsExpert(): ?bool
     {
         return $this->isExpert;
@@ -137,6 +77,66 @@ class User
     public function setIsExpert(bool $isExpert): self
     {
         $this->isExpert = $isExpert;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?string $adress): self
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getPhoneNumber(): ?int
+    {
+        return $this->phone_number;
+    }
+
+    public function setPhoneNumber(int $phone_number): self
+    {
+        $this->phone_number = $phone_number;
+
+        return $this;
+    }
+
+    public function getBirthdayDate(): ?\DateTimeInterface
+    {
+        return $this->birthday_date;
+    }
+
+    public function setBirthdayDate(?\DateTimeInterface $birthday_date): self
+    {
+        $this->birthday_date = $birthday_date;
 
         return $this;
     }
