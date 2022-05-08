@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\CryptoCurrency;
+use App\Repository\CryptoCurrencyRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 
@@ -37,15 +38,15 @@ class CryptoCurrencyService
         curl_close($curl);
     }
 
-    public function insertDataAPIBD(CryptoCurrencyService $cryptoService, $emInsert)
+    public function insertDataAPIBD(CryptoCurrencyService $cryptoService, $emInsert, CryptoCurrencyRepository $cryptoRepository)
     {
+        $cryptoRepository->clearCryptoTable($emInsert);
         $cryptosData = $cryptoService->getAllCrypto()->data;
         foreach ($cryptosData as $crypto => $value) {
             $cryptoInsert = new CryptoCurrency();
             // $crypto->setCategory();
             // $crypto->setNbFollowTt();
             // $crypto->setDescription();
-            // dd($value);
             $cryptoInsert->setMarketcap($value->quote->EUR->market_cap);
             $cryptoInsert->setName($value->name);
             $cryptoInsert->setPrice($value->quote->EUR->price);

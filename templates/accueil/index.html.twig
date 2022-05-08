@@ -10,11 +10,12 @@
 
 <div class="example-wrapper">
     <h1>GroovyCrypto {{ controller_name }}</h1>
+<a href="{{ path('maj_crypto_API') }}">Maj Data Crypto with API</a>
 
    <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Id</th>
+
       <th scope="col">Nom</th>
       <th scope="col">Symbole</th>
       <th scope="col">Price</th>
@@ -24,8 +25,13 @@
   <tbody>
     {% for crypto in cryptos %}
     <tr class="table-primary">
-      <th scope="row">{{crypto.id}}</th>
+      {# <th scope="row">{{crypto.id}}</th>
       <td>{{crypto.name}}</td>
+      <td>{{crypto.symbol}}</td>
+      <td>{{crypto.price}}</td>
+      <td>{{crypto.marketcap}}</td> #}
+
+      <th scope="row">{{crypto.name}}</th>
       <td>{{crypto.symbol}}</td>
       <td>{{crypto.price}}</td>
       <td>{{crypto.marketcap}}</td>

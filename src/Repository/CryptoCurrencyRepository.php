@@ -78,7 +78,7 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
     */
 
 
-    public function resetDatabase(EntityManagerInterface $em)
+    public function clearCryptoTable(EntityManagerInterface $em)
     {
         $em->createQuery('DELETE FROM App\Entity\CryptoCurrency')->execute();
     }
