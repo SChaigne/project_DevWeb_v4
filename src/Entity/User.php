@@ -52,6 +52,12 @@ class User
      */
     private $isExpert;
 
+    /**
+     * 
+     * @ORM\Column(type="string", length=255, options={"default":"visitor"})
+     */
+    private $roles;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +143,18 @@ class User
     public function setBirthdayDate(?\DateTimeInterface $birthday_date): self
     {
         $this->birthday_date = $birthday_date;
+
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
