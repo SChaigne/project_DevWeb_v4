@@ -17,26 +17,14 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article", name="app_article")
      */
-    public function index(Request $request,EntityManagerInterface $entityManager): Response
+    public function index(): Response
     {
         $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            //$userInfos = $form->getData();
-
-            //return $this->redirectToRoute('accueil');
-
-            $entityManager->persist($article);
-            $entityManager->flush();
-
-            return new Response("Article ajouté");
-        }
+        $formulaire = $this->createForm(ArticleType::class,$article);
 
 
         return $this->render('article/index.html.twig', [
-            'article_form' => $form->createView()
+            'article_form' => $formulaire->createView()
         ]);
     }
 }
