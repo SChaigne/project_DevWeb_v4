@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CryptoCurrency index{% endblock %}
+
+{% block body %}
+    <h1>CryptoCurrency index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Marketcap</th>
+                <th>Nb_follow_tt</th>
+                <th>Category</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for crypto_currency in crypto_currencies %}
+            <tr>
+                <td>{{ crypto_currency.id }}</td>
+                <td>{{ crypto_currency.name }}</td>
+                <td>{{ crypto_currency.symbol }}</td>
+                <td>{{ crypto_currency.price }}</td>
+                <td>{{ crypto_currency.description }}</td>
+                <td>{{ crypto_currency.marketcap }}</td>
+                <td>{{ crypto_currency.nbFollowTt }}</td>
+                <td>{{ crypto_currency.category }}</td>
+                <td>
+                    <a href="{{ path('app_crypto_currency_show', {'id': crypto_currency.id}) }}">show</a>
+                    <a href="{{ path('app_crypto_currency_edit', {'id': crypto_currency.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_crypto_currency_new') }}">Create new</a>
+{% endblock %}

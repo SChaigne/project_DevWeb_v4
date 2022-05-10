@@ -61,6 +61,11 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+    /**
+     * 
+     * @ORM\Column(type="string", length=255, options={"default":"visitor"})
+     */
+    private $roles;
 
     public function getId(): ?int
     {
@@ -171,6 +176,17 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
