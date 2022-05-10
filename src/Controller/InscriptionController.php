@@ -27,7 +27,8 @@ class InscriptionController extends AbstractController
             //$userInfos = $form->getData();
 
             //return $this->redirectToRoute('accueil');
-
+            $user->setIsExpert(false);
+            $user->setRoles("membre");
             $entityManager->persist($user);
             $entityManager->flush();
 
