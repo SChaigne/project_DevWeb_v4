@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class User
      * @ORM\Column(type="string", length=255, options={"default":"visitor"})
      */
     private $roles;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Subscribe::class, mappedBy="id_user")
+     */
+    private $subscribes;
+
+    public function __construct()
+    {
+        $this->subscribes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -187,6 +199,33 @@ class User
     public function setRoles(string $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscribe>
+     */
+    public function getSubscribes(): Collection
+    {
+        return $this->subscribes;
+    }
+
+    public function addSubscribe(Subscribe $subscribe): self
+    {
+        if (!$this->subscribes->contains($subscribe)) {
+            $this->subscribes[] = $subscribe;
+            $subscribe->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribe(Subscribe $subscribe): self
+    {
+        if ($this->subscribes->removeElement($subscribe)) {
+            $subscribe->removeIdUser($this);
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CryptoCurrencyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class CryptoCurrency
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Subscribe::class, mappedBy="id_crypto")
+     */
+    private $subscribes;
+
+    public function __construct()
+    {
+        $this->subscribes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +150,33 @@ class CryptoCurrency
     public function setNbFollowTt(?int $nb_follow_tt): self
     {
         $this->nb_follow_tt = $nb_follow_tt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Subscribe>
+     */
+    public function getSubscribes(): Collection
+    {
+        return $this->subscribes;
+    }
+
+    public function addSubscribe(Subscribe $subscribe): self
+    {
+        if (!$this->subscribes->contains($subscribe)) {
+            $this->subscribes[] = $subscribe;
+            $subscribe->addIdCrypto($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribe(Subscribe $subscribe): self
+    {
+        if ($this->subscribes->removeElement($subscribe)) {
+            $subscribe->removeIdCrypto($this);
+        }
 
         return $this;
     }
