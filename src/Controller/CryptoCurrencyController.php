@@ -13,7 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 //@IsGranted("ROLE_ADMIN") (//TODO a mettre quand j'aurais les users)
 /**
- * @Route("/crypto/currency")
+ * @Route("/admin/crypto/currency")
  * 
  */
 class CryptoCurrencyController extends AbstractController
