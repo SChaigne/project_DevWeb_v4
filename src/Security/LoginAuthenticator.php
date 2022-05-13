@@ -20,7 +20,7 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class UserAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
+class LoginAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
 
@@ -56,6 +56,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             Security::LAST_USERNAME,
             $credentials['login']
         );
+
         return $credentials;
     }
 
@@ -69,7 +70,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['login' => $credentials['login']]);
 
         if (!$user) {
-            throw new UsernameNotFoundException('login could not be found.');
+            throw new UsernameNotFoundException('Login could not be found.');
         }
 
         return $user;
@@ -77,6 +78,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        // dump($this->passwordEncoder->isPasswordValid($user, $credentials['password']));
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -93,7 +95,6 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
         return new RedirectResponse($this->urlGenerator->generate('app_accueil'));
         throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
