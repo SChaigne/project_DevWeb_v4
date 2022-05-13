@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CryptoCurrency{% endblock %}
+
+{% block body %}
+    <h1>CryptoCurrency</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ crypto_currency.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ crypto_currency.name }}</td>
+            </tr>
+            <tr>
+                <th>Symbol</th>
+                <td>{{ crypto_currency.symbol }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ crypto_currency.price }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ crypto_currency.description }}</td>
+            </tr>
+            <tr>
+                <th>Marketcap</th>
+                <td>{{ crypto_currency.marketcap }}</td>
+            </tr>
+            <tr>
+                <th>Nb_follow_tt</th>
+                <td>{{ crypto_currency.nbFollowTt }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ crypto_currency.category }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_accueil') }}">back to list</a>
+
+{% endblock %}
