@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\CryptoCurrency;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/article")
+ * @Route("/article")
  */
 class ArticleController extends AbstractController
 {
@@ -26,17 +27,28 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_article_new", methods={"GET", "POST"})
+     * @Route("/new/{id_crypto}", name="app_article_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ArticleRepository $articleRepository): Response
+    public function new(Request $request, ArticleRepository $articleRepository, $id_crypto): Response
     {
+        $user = $this->getUser();
+        if(!$user){ //TODO autorisé que si c'est un expert
+            return $this->redirectToRoute('app_login');
+        }
+        // ON RECUPERE LA CRYPTO
+        // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
+        $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            
+            $article->setIdUser($user);
+            $article->setIdCrypto($crypto);
             $articleRepository->add($article);
-            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_article_show', ['id' => $article->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('article/new.html.twig', [
