@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Commentary;
 use App\Entity\CryptoCurrency;
 use App\Form\ArticleType;
+use App\Form\CommentaryType;
 use App\Repository\ArticleRepository;
+use App\Repository\CommentaryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,12 +61,30 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_article_show", methods={"GET"})
+     * @Route("/{id}", name="app_article_show", methods={"GET", "POST"})
      */
-    public function show(Article $article): Response
+    public function show(Article $article, Request $request, CommentaryRepository $commentaryRepository): Response
     {
+        $user = $this->getUser();
+        if(!$user){
+            return $this->redirectToRoute('app_login');
+        }
+
+        // AJOUT DES COMMENTAIRES DIRECTEMENT AVEC L'ARTICLE
+        $commentary = new Commentary();
+        $form = $this->createForm(CommentaryType::class, $commentary);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid() ) { 
+            $commentary->setIdArticle($article);
+            $commentary->setIdUser($user);
+
+            $commentaryRepository->add($commentary);
+            return $this->redirectToRoute('app_article_show', ['id' => $article->getId()], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'form' => $form->createView()
         ]);
     }
 
@@ -87,7 +108,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_article_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="app_article_delete", methods={"POST"})
      */
     public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
