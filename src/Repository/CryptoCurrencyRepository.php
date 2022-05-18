@@ -36,6 +36,13 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         if (!empty($search->inputSearch)) {
             $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
         }
+
+        if (!empty($search->minPrice)) {
+            $query = $query->andWhere('Crypto.price >= :minPrice')->setParameter('minPrice', $search->minPrice);
+        }
+        if (!empty($search->maxPrice)) {
+            $query = $query->andWhere('Crypto.price <= :maxPrice')->setParameter('maxPrice', $search->maxPrice);
+        }
         // return $this->findAll();
         return $query->getQuery()->getResult();
     }
