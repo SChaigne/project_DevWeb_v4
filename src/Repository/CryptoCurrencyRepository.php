@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\CryptoCurrency;
 use App\Service\CryptoCurrencyService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,6 +23,21 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CryptoCurrency::class);
+    }
+
+    /**
+     * Récupère les produits en lien avec une recherche
+     * @return CryptoCurrency[]
+     */
+    public function findSearch(SearchData $search): array
+    {
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto');
+
+        if (!empty($search->inputSearch)) {
+            $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
+        }
+        // return $this->findAll();
+        return $query->getQuery()->getResult();
     }
 
     /**
