@@ -22,7 +22,11 @@
         </div>
     </div>
     <h4>Sort Price</h4>
-    {{form_row (form.orderPrice)}}
+        <h5> Par prix</h5>
+            {{form_row (form.orderPrice)}}
+        <h5> Par MarketCap</h5>
+            {{form_row (form.orderPriceMarketCap)}}
+
     <button type="submit" class ="btn btn-primary w-20 ml-auto mt-2">Filtrer</button>
     <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
 {{form_end(form)}}

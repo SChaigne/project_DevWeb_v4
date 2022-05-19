@@ -38,4 +38,9 @@ class SearchData
      * @var string
      */
     public $orderPrice = '';
+
+    /**
+     * @var string
+     */
+    public $orderPriceMarketCap = '';
 }

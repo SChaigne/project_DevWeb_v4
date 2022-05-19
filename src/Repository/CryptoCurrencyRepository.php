@@ -33,15 +33,8 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search): array
     {
-        if (!empty($search->orderPrice)) {
-            if ($search->orderPrice == "priceAsc") {
-                $query = $this->createQueryBuilder('Crypto')->select('Crypto')->orderBy('Crypto.price', 'ASC');
-            } else {
-                $query = $this->createQueryBuilder('Crypto')->select('Crypto')->orderBy('Crypto.price', 'DESC');
-            }
-        } else {
-            $query = $this->createQueryBuilder('Crypto')->select('Crypto');
-        }
+
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto');
 
         if (!empty($search->inputSearch)) {
             $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
@@ -50,6 +43,22 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         //TODO CATEGORIE
 
         //TODO FinCateg
+
+        if (!empty($search->orderPrice)) {
+            if ($search->orderPrice == "priceAsc") {
+                $query = $query->orderBy('Crypto.price', 'ASC');
+            } else {
+                $query = $query->orderBy('Crypto.price', 'DESC');
+            }
+        }
+
+        if (!empty($search->orderPriceMarketCap)) {
+            if ($search->orderPrice == "priceMarketCapAsc") {
+                $query = $query->orderBy('Crypto.marketcap', 'ASC');
+            } else {
+                $query = $query->orderBy('Crypto.marketcap', 'DESC');
+            }
+        }
 
         if (!empty($search->minPrice)) {
             $query = $query->andWhere('Crypto.price >= :minPrice')->setParameter('minPrice', $search->minPrice);
@@ -63,7 +72,6 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         if (!empty($search->maxMarketCap)) {
             $query = $query->andWhere('Crypto.marketcap <= :maxMarketCap')->setParameter('maxMarketCap', $search->maxMarketCap);
         }
-        // return $this->findAll();
         return $query->getQuery()->getResult();
     }
 
