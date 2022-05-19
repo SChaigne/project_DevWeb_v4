@@ -11,6 +11,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method CryptoCurrency|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,7 +22,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CryptoCurrencyRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, CryptoCurrency::class);
     }
@@ -31,11 +33,23 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
      */
     public function findSearch(SearchData $search): array
     {
-        $query = $this->createQueryBuilder('Crypto')->select('Crypto');
+        if (!empty($search->orderPrice)) {
+            if ($search->orderPrice == "priceAsc") {
+                $query = $this->createQueryBuilder('Crypto')->select('Crypto')->orderBy('Crypto.price', 'ASC');
+            } else {
+                $query = $this->createQueryBuilder('Crypto')->select('Crypto')->orderBy('Crypto.price', 'DESC');
+            }
+        } else {
+            $query = $this->createQueryBuilder('Crypto')->select('Crypto');
+        }
 
         if (!empty($search->inputSearch)) {
             $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
         }
+
+        //TODO CATEGORIE
+
+        //TODO FinCateg
 
         if (!empty($search->minPrice)) {
             $query = $query->andWhere('Crypto.price >= :minPrice')->setParameter('minPrice', $search->minPrice);
@@ -43,10 +57,24 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         if (!empty($search->maxPrice)) {
             $query = $query->andWhere('Crypto.price <= :maxPrice')->setParameter('maxPrice', $search->maxPrice);
         }
+        if (!empty($search->minMarketCap)) {
+            $query = $query->andWhere('Crypto.marketcap >= :minMarketCap')->setParameter('minMarketCap', $search->minMarketCap);
+        }
+        if (!empty($search->maxMarketCap)) {
+            $query = $query->andWhere('Crypto.marketcap <= :maxMarketCap')->setParameter('maxMarketCap', $search->maxMarketCap);
+        }
         // return $this->findAll();
         return $query->getQuery()->getResult();
     }
 
+    /**
+     * Récupère le prix minimum et maximum correspondant à une recherche
+     * @return integer[]
+     */
+    public function findMinMax(SearchData $search): array
+    {
+        return [0, 1000];
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

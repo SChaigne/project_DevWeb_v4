@@ -33,4 +33,9 @@ class SearchData
      * @var null|integer
      */
     public $minMarketCap;
+
+    /**
+     * @var string
+     */
+    public $orderPrice = '';
 }

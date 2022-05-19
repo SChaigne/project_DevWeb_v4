@@ -21,6 +21,8 @@
             {{form_row (form.maxMarketCap)}}
         </div>
     </div>
-
+    <h4>Sort Price</h4>
+    {{form_row (form.orderPrice)}}
     <button type="submit" class ="btn btn-primary w-20 ml-auto mt-2">Filtrer</button>
+    <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
 {{form_end(form)}}
