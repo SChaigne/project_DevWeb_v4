@@ -40,10 +40,6 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
             $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
         }
 
-        //TODO CATEGORIE
-
-        //TODO FinCateg
-
         if (!empty($search->orderPrice)) {
             if ($search->orderPrice == "priceAsc") {
                 $query = $query->orderBy('Crypto.price', 'ASC');
@@ -58,6 +54,10 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
             } else {
                 $query = $query->orderBy('Crypto.marketcap', 'DESC');
             }
+        }
+
+        if (!empty($search->category)) {
+            $query = $query->andWhere('Crypto.category LIKE :categ')->setParameter('categ', $search->category);
         }
 
         if (!empty($search->minPrice)) {

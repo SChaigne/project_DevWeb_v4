@@ -15,11 +15,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchForm extends AbstractType
 {
-
+    public $cryptosCategories;
+    public $newtabCategories;
     public function __construct(CryptoCurrencyRepository $cryptoRepository)
     {
-        $cryptosCategories = $cryptoRepository->createQueryBuilder('Crypto')->select('Crypto.category')->getQuery()->getResult();
-        dd($cryptosCategories);
+        $this->cryptosCategories = $cryptoRepository->createQueryBuilder('Crypto')->select('Crypto.category')->distinct()->getQuery()->getResult();
+
+        // dd($this->cryptosCategories[0]["category"]);
+
+        foreach ($this->cryptosCategories as $categ => $value) {
+            $this->newtabCategories[$value["category"]] = $value["category"];
+        }
+        // dd($newtabCategories);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,10 +43,9 @@ class SearchForm extends AbstractType
                 'category',
                 ChoiceType::class,
                 [
-                    'choices' => [
-                        'Prix croissant' => "priceAsc",
-                        'Prix décroissant' => "priceDesc"
-                    ],
+                    'label' => false,
+                    'required' => false,
+                    'choices' => $this->newtabCategories,
                     'expanded' => true
                 ]
             )
@@ -65,14 +71,18 @@ class SearchForm extends AbstractType
             ])
             ->add('orderPrice', ChoiceType::class, [
                 'label' => false,
+                'required' => false,
                 'choices' => [
+                    'Aucun' => '',
                     'Prix croissant' => "priceAsc",
                     'Prix décroissant' => "priceDesc"
                 ]
             ])
             ->add('orderPriceMarketCap', ChoiceType::class, [
                 'label' => false,
+                'required' => false,
                 'choices' => [
+                    'Aucun' => '',
                     'Prix croissant' => "priceMarketCapAsc",
                     'Prix décroissant' => "priceMarketCapDesc"
                 ]
