@@ -18,9 +18,11 @@ class AccueilController extends AbstractController
     public function index(CryptoCurrencyService $cryptoService, CryptoCurrencyRepository $cryptoRepository): Response
     {
         $cryptos = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findAll(); //Get All Crypto from DB
+        $user = $this->getUser();
 
         return $this->render('accueil/index.html.twig', [
             'controller_name' => 'AccueilController',
+            'user' => $user,
             'cryptos' => $cryptos
         ]);
     }
