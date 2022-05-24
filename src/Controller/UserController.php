@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//@IsGranted("ROLE_ADMIN") (//TODO a mettre quand j'aurais les users)
 
 /**
  * @Route("/admin/user")

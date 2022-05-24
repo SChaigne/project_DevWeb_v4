@@ -15,10 +15,12 @@ class DetailsCryptoController extends AbstractController
      */
     public function index(CryptoCurrency $cryptoCurrency): Response
     {
+        $user = $this->getUser();
         $articles = $cryptoCurrency->getArticles();
         return $this->render('details_crypto/index.html.twig', [
             'crypto_currency' => $cryptoCurrency,
-            'articles' =>$articles,
+            'articles' => $articles,
+            'user' => $user,
         ]);
     }
 }

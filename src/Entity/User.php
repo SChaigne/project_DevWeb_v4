@@ -68,10 +68,6 @@ class User implements UserInterface
      */
     private $birthday_date;
 
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $isExpert;
 
     /**
      * @ORM\ManyToMany(targetEntity=Subscribe::class, mappedBy="id_user")
@@ -116,8 +112,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_MEMBRE
+        $roles[] = 'ROLE_MEMBRE';
 
         return array_unique($roles);
     }
@@ -236,17 +232,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsExpert(): ?bool
-    {
-        return $this->isExpert;
-    }
-
-    public function setIsExpert(?bool $isExpert): self
-    {
-        $this->isExpert = $isExpert;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Subscribe>

@@ -5,10 +5,12 @@
 {% block body %}
     <h1>CryptoCurrency</h1>
 
-    <button><a href="{{path('app_article_new', {'id_crypto': crypto_currency.id})}}">
-        Ajouter un article
-        </a>
-    </button>
+    {% if is_granted('ROLE_EXPERT') %}
+        <button><a href="{{path('app_article_new', {'id_crypto': crypto_currency.id})}}">
+            Ajouter un article
+            </a>
+        </button>
+    {% endif %}
 
     <table class="table">
         <tbody>

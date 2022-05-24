@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-//@IsGranted("ROLE_ADMIN") (//TODO a mettre quand j'aurais les users)
 /**
  * @Route("/admin/crypto/currency")
  * 
