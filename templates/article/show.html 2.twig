@@ -3,20 +3,9 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <h2>{{article.idCrypto.name}}</h2>
-    <h1>{{article.titre}}</h1>
-    <p>{{article.content}}</p>
-    <p>Auteur : {{article.idUser.login}}</p>
-    <p>{{article.date ? article.date|date('Y-m-d H:i:s') : '' }}</p>
+    <h1>Article</h1>
 
-    <h1>Commentaires</h1>
-    {% for commentary in article.commentaries %}
-        <p>{{commentary.idUser.login}} : {{commentary.text}}</p>     
-    {% endfor %}
-
-    {{ include('commentary/_form.html.twig') }}
-
-    {#<table class="table">
+    <table class="table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -46,5 +35,4 @@
     <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 
     {{ include('article/_delete_form.html.twig') }}
-    #}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\CryptoCurrency;
 use App\Service\CryptoCurrencyService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method CryptoCurrency|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,11 +22,67 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CryptoCurrencyRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, CryptoCurrency::class);
     }
 
+    /**
+     * Récupère les produits en lien avec une recherche
+     * @return CryptoCurrency[]
+     */
+    public function findSearch(SearchData $search): array
+    {
+
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto');
+
+        if (!empty($search->inputSearch)) {
+            $query = $query->andWhere('Crypto.name LIKE :inputSearch')->setParameter('inputSearch', "%{$search->inputSearch}%");
+        }
+
+        if (!empty($search->orderPrice)) {
+            if ($search->orderPrice == "priceAsc") {
+                $query = $query->orderBy('Crypto.price', 'ASC');
+            } else {
+                $query = $query->orderBy('Crypto.price', 'DESC');
+            }
+        }
+
+        if (!empty($search->orderPriceMarketCap)) {
+            if ($search->orderPrice == "priceMarketCapAsc") {
+                $query = $query->orderBy('Crypto.marketcap', 'ASC');
+            } else {
+                $query = $query->orderBy('Crypto.marketcap', 'DESC');
+            }
+        }
+
+        if (!empty($search->category)) {
+            $query = $query->andWhere('Crypto.category LIKE :categ')->setParameter('categ', $search->category);
+        }
+
+        if (!empty($search->minPrice)) {
+            $query = $query->andWhere('Crypto.price >= :minPrice')->setParameter('minPrice', $search->minPrice);
+        }
+        if (!empty($search->maxPrice)) {
+            $query = $query->andWhere('Crypto.price <= :maxPrice')->setParameter('maxPrice', $search->maxPrice);
+        }
+        if (!empty($search->minMarketCap)) {
+            $query = $query->andWhere('Crypto.marketcap >= :minMarketCap')->setParameter('minMarketCap', $search->minMarketCap);
+        }
+        if (!empty($search->maxMarketCap)) {
+            $query = $query->andWhere('Crypto.marketcap <= :maxMarketCap')->setParameter('maxMarketCap', $search->maxMarketCap);
+        }
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Récupère le prix minimum et maximum correspondant à une recherche
+     * @return integer[]
+     */
+    public function findMinMax(SearchData $search): array
+    {
+        return [0, 1000];
+    }
     /**
      * @throws ORMException
      * @throws OptimisticLockException

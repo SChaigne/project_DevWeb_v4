@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CG - Accueil{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
 <style>
@@ -10,38 +10,6 @@
       color: black;
     }
 </style>
-
-<div class="example-wrapper">
-    <h1>GroovyCrypto {{ controller_name }}</h1>
-<a href="{{ path('maj_crypto_API') }}">Maj Data Crypto with API</a>
-
-   <table class="table table-hover">
-  <thead>
-    <tr>
-
-      <th scope="col">Nom</th>
-      <th scope="col">Symbole</th>
-      <th scope="col">Price</th>
-      <th scope="col">Market Cap</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for crypto in cryptos %}
-    <tr class="table-primary">
-    
-      {# <th scope="row">{{crypto.id}}</th>
-      <td>{{crypto.name}}</td>
-      <td>{{crypto.symbol}}</td>
-      <td>{{crypto.price}}</td>
-      <td>{{crypto.marketcap}}</td> #}
-
-      <th scope="row"><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.name}}</a></th>
-      <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.symbol}}</a></td>
-      <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.price}}</a></td>
-      <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.marketcap}}</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-</div>
+  {% include 'accueil/_filter.html.twig' with {form: form} only %}
+  {% include 'accueil/_tabComponent.html.twig' with {cryptos: cryptos} only %}
 {% endblock %}

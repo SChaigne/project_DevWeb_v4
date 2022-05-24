@@ -3,12 +3,7 @@
 {% block title %}CryptoCurrency{% endblock %}
 
 {% block body %}
-    <h1>CryptoCurrency</h1>
-
-    <button><a href="{{path('app_article_new', {'id_crypto': crypto_currency.id})}}">
-        Ajouter un article
-        </a>
-    </button>
+    <h1>CryptoCurrency {{user_login}}</h1>
 
     <table class="table">
         <tbody>
