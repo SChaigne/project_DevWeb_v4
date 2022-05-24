@@ -26,7 +26,6 @@ class SubscribesOfUserController extends AbstractController
             }
             
         }
-        //dd($cryptoUser);
 
         return $this->render('subscribes_of_user/index.html.twig', [
             'cryptos' => $cryptoUser,
