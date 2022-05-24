@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Abonnements{% endblock %}
 
 {% block body %}
 <style>
@@ -10,17 +10,11 @@
       color: black;
     }
 </style>
-  {% include 'accueil/_filter.html.twig' with {form: form} only %}
-  {% include 'accueil/_tabComponent.html.twig' with {cryptos: cryptos} only %}
 
 <div class="example-wrapper">
-    <h1>GroovyCrypto {{ controller_name }}</h1>
-<a href="{{ path('maj_crypto_API') }}">Maj Data Crypto with API</a>
-
-   <table class="table table-hover">
-  <thead>
+    <table class="table table-hover">
+    <thead>
     <tr>
-
       <th scope="col">Nom</th>
       <th scope="col">Symbole</th>
       <th scope="col">Price</th>
@@ -42,27 +36,6 @@
       <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.symbol}}</a></td>
       <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.price}}</a></td>
       <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.marketcap}}</a></td>
-      
-      {% set subId = 0 %}
-      {% if user %}
-        {% set abo = false %}
-        {% for sub in crypto.subscribes %}
-          {% for unUser in sub.idUser %}
-            {% if user == unUser %}
-              {% set abo = true %}
-              {% set subId = sub.id %}
-            {% endif %}
-          {% endfor %}
-        {% endfor %}
-        {% if abo %}
-          {#<td><button><a href="{{path('app_subscribe_delete', {'id': subId})}}">Se désabonner</a></button></td>#}
-          <td>{{ include('subscribe/_delete_form.html.twig') }}</td>
-        {% else %}
-          <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}">S'abonner</a></button></td>
-        {% endif %}
-      {% else %}
-        <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}">S'abonner</a></button></td>
-      {% endif %}
     </tr>
     {% endfor %}
   </tbody>

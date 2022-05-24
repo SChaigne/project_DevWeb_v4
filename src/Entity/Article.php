@@ -48,7 +48,7 @@ class Article
     private $id_user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=CryptoCurrency::class)
+     * @ORM\ManyToOne(targetEntity=CryptoCurrency::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $id_crypto;

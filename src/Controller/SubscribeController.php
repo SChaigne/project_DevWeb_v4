@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CryptoCurrency;
 use App\Entity\Subscribe;
 use App\Form\SubscribeType;
 use App\Repository\SubscribeRepository;
@@ -27,23 +28,25 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_subscribe_new", methods={"GET", "POST"})
+     * @Route("/new/{id_crypto}", name="app_subscribe_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, SubscribeRepository $subscribeRepository): Response
+    public function new(Request $request, SubscribeRepository $subscribeRepository, $id_crypto): Response
     {
-        $subscribe = new Subscribe();
-        $form = $this->createForm(SubscribeType::class, $subscribe);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $subscribeRepository->add($subscribe);
-            return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        $user = $this->getUser();
+        if(!$user){
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('subscribe/new.html.twig', [
-            'subscribe' => $subscribe,
-            'form' => $form->createView(),
-        ]);
+        // ON RECUPERE LA CRYPTO
+        // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
+        $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
+        $subscribe = new Subscribe();
+        $subscribe->addIdUser($user);
+        $subscribe->addIdCrypto($crypto);
+
+        $subscribeRepository->add($subscribe);
+        // return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
@@ -76,7 +79,7 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_subscribe_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="app_subscribe_delete", methods={"GET", "POST"})
      */
     public function delete(Request $request, Subscribe $subscribe, SubscribeRepository $subscribeRepository): Response
     {
@@ -84,6 +87,6 @@ class SubscribeController extends AbstractController
             $subscribeRepository->remove($subscribe);
         }
 
-        return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
 }

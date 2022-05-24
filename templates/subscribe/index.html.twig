@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Login user</th>
+                <th>Symbol crypto</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -16,6 +18,8 @@
         {% for subscribe in subscribes %}
             <tr>
                 <td>{{ subscribe.id }}</td>
+                <td>{{subscribe.idUser[0].login}}</td>
+                <td>{{subscribe.idCrypto[0].symbol}}</td>
                 <td>
                     <a href="{{ path('app_subscribe_show', {'id': subscribe.id}) }}">show</a>
                     <a href="{{ path('app_subscribe_edit', {'id': subscribe.id}) }}">edit</a>
@@ -29,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_subscribe_new') }}">Create new</a>
+    {#<a href="{{ path('app_subscribe_new') }}">Create new</a>#}
 {% endblock %}
