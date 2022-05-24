@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SubscribesOfUserController extends AbstractController
 {
     /**
-     * @Route("/abonnements", name="app_subscribes_of_user")
+     * @Route("/abonnements", name="app_abonnements")
      */
     public function index(): Response
     {
