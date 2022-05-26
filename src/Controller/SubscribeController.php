@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CryptoCurrency;
 use App\Entity\Subscribe;
 use App\Form\SubscribeType;
 use App\Repository\SubscribeRepository;
@@ -10,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-//@IsGranted("ROLE_MEMBRE") (//TODO a mettre quand j'aurais les users)
 /**
  * @Route("/subscribe")
  */
@@ -21,29 +21,41 @@ class SubscribeController extends AbstractController
      */
     public function index(SubscribeRepository $subscribeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        
         return $this->render('subscribe/index.html.twig', [
             'subscribes' => $subscribeRepository->findAll(),
         ]);
     }
 
     /**
-     * @Route("/new", name="app_subscribe_new", methods={"GET", "POST"})
+     * @Route("/new/{id_crypto}", name="app_subscribe_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, SubscribeRepository $subscribeRepository): Response
+    public function new(Request $request, SubscribeRepository $subscribeRepository, $id_crypto): Response
     {
-        $subscribe = new Subscribe();
-        $form = $this->createForm(SubscribeType::class, $subscribe);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $subscribeRepository->add($subscribe);
-            return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        // GESTION DES DROITS
+        $user = $this->getUser();
+        try {
+            $this->denyAccessUnlessGranted('ROLE_MEMBRE');
+        } catch (\Throwable $th) {
+            //throw $th;
+            if(!$user){
+                return $this->redirectToRoute('app_login');
+            }else{
+                return $this->redirectToRoute('app_accueil');
+            }   
         }
 
-        return $this->render('subscribe/new.html.twig', [
-            'subscribe' => $subscribe,
-            'form' => $form->createView(),
-        ]);
+        // ON RECUPERE LA CRYPTO
+        // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
+        $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
+        $subscribe = new Subscribe();
+        $subscribe->addIdUser($user);
+        $subscribe->addIdCrypto($crypto);
+
+        $subscribeRepository->add($subscribe);
+        // return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
 
     /**
@@ -51,6 +63,8 @@ class SubscribeController extends AbstractController
      */
     public function show(Subscribe $subscribe): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         return $this->render('subscribe/show.html.twig', [
             'subscribe' => $subscribe,
         ]);
@@ -61,6 +75,8 @@ class SubscribeController extends AbstractController
      */
     public function edit(Request $request, Subscribe $subscribe, SubscribeRepository $subscribeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $form = $this->createForm(SubscribeType::class, $subscribe);
         $form->handleRequest($request);
 
@@ -76,14 +92,28 @@ class SubscribeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_subscribe_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="app_subscribe_delete", methods={"GET", "POST"})
      */
     public function delete(Request $request, Subscribe $subscribe, SubscribeRepository $subscribeRepository): Response
     {
+        // GESTION DES DROITS
+        $user = $this->getUser();
+        try {
+            $this->denyAccessUnlessGranted('ROLE_MEMBRE');
+        } catch (\Throwable $th) {
+            //throw $th;
+            if(!$user){
+                return $this->redirectToRoute('app_login');
+            }else{
+                //mettre un petit truc qui dit que c'est impossible de supprimer l'abonnement
+                return $this->redirectToRoute('app_accueil');
+            }   
+        }
+
         if ($this->isCsrfTokenValid('delete' . $subscribe->getId(), $request->request->get('_token'))) {
             $subscribeRepository->remove($subscribe);
         }
 
-        return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
 }

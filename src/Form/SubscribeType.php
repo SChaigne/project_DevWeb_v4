@@ -12,8 +12,8 @@ class SubscribeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id_user')
-            ->add('id_crypto')
+            //->add('id_user')
+            //->add('id_crypto')
         ;
     }
 

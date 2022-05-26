@@ -11,5 +11,5 @@
     }
 </style>
   {% include 'accueil/_filter.html.twig' with {form: form} only %}
-  {% include 'accueil/_tabComponent.html.twig' with {cryptos: cryptos} only %}
+  {% include 'accueil/_tabComponent.html.twig' with {cryptos: cryptos, user: user} only %}
 {% endblock %}

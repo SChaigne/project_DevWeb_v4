@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,10 +68,16 @@ class User implements UserInterface
      */
     private $birthday_date;
 
+
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\ManyToMany(targetEntity=Subscribe::class, mappedBy="id_user")
      */
-    private $isExpert;
+    private $subscribes;
+
+    public function __construct()
+    {
+        $this->subscribes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,8 +112,8 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // guarantee every user at least has ROLE_MEMBRE
+        $roles[] = 'ROLE_MEMBRE';
 
         return array_unique($roles);
     }
@@ -224,14 +232,30 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getIsExpert(): ?bool
+
+    /**
+     * @return Collection<int, Subscribe>
+     */
+    public function getSubscribes(): Collection
     {
-        return $this->isExpert;
+        return $this->subscribes;
     }
 
-    public function setIsExpert(?bool $isExpert): self
+    public function addSubscribe(Subscribe $subscribe): self
     {
-        $this->isExpert = $isExpert;
+        if (!$this->subscribes->contains($subscribe)) {
+            $this->subscribes[] = $subscribe;
+            $subscribe->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubscribe(Subscribe $subscribe): self
+    {
+        if ($this->subscribes->removeElement($subscribe)) {
+            $subscribe->removeIdUser($this);
+        }
 
         return $this;
     }

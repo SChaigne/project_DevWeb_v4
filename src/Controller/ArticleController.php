@@ -24,6 +24,7 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
         ]);
@@ -34,10 +35,19 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request, ArticleRepository $articleRepository, $id_crypto): Response
     {
+        // GESTION DES DROITS
         $user = $this->getUser();
-        if(!$user){ //TODO autorisé que si c'est un expert
-            return $this->redirectToRoute('app_login');
+        try {
+            $this->denyAccessUnlessGranted('ROLE_EXPERT');
+        } catch (\Throwable $th) {
+            //throw $th;
+            if(!$user){
+                return $this->redirectToRoute('app_login');
+            }else{
+                return $this->redirectToRoute('app_accueil');
+            }   
         }
+        
         // ON RECUPERE LA CRYPTO
         // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
         $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
@@ -65,9 +75,17 @@ class ArticleController extends AbstractController
      */
     public function show(Article $article, Request $request, CommentaryRepository $commentaryRepository): Response
     {
+        // GESTION DES DROITS
         $user = $this->getUser();
-        if(!$user){
-            return $this->redirectToRoute('app_login');
+        try {
+            $this->denyAccessUnlessGranted('ROLE_MEMBRE');
+        } catch (\Throwable $th) {
+            //throw $th;
+            if(!$user){
+                return $this->redirectToRoute('app_login');
+            }else{
+                return $this->redirectToRoute('app_accueil');
+            }   
         }
 
         // AJOUT DES COMMENTAIRES DIRECTEMENT AVEC L'ARTICLE
@@ -93,6 +111,8 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EXPERT');
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -112,6 +132,8 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_EXPERT');
+        
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $articleRepository->remove($article);
         }
