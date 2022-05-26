@@ -13,7 +13,12 @@
         </head>
         <body>
                 <nav class="navbar navbar-light bg-light">
-                        <a class="" href="{{ path('app_accueil')}}">Accueil</a>
+                        <div class="container">
+                                <a class="navbar-brand" href="{{ path('app_accueil')}}">
+                                        <img src="/img/logo_GC_bis.png" alt="logo" width="60" height="55" class="d-inline-block align-text-center">
+                                        Accueil
+                                </a>
+                        <h1> GroovyCrypto </h1>
                         {% if app.user %}
                                 {# Si l'utilisateur est authentifié #}
                                         {# <a class="btn btn-outline-info" href="{{ path('membre') }}">Page membre</a> #}
@@ -23,15 +28,16 @@
                                 {% endif %}
                                 <div>
                                         Bonjour {{ app.user.username }} 
-                                        <a class="btn" href="{{ path('app_abonnements') }}">Mes abonnements</a>
-                                        <a class="btn btn-sm btn-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_abonnements') }}">Mes abonnements</a>
+                                        <a class="btn btn-lg btn-outline-danger" href="{{ path('app_logout') }}">Déconnexion</a>
                                 </div>
                         {% else %}
                                 <div>
-                                        {# <a class="btn btn-sm btn-primary" href="{{ path('utilisateur_new') }}">S'inscrire</a> #}
-                                        {# <a class="btn btn-sm btn-success" href="{{ path('app_login') }}">Se connecter</a> #}
+                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_register') }}">S'inscrire</a>
+                                        <a class="btn btn-lg btn-outline-success" href="{{ path('app_login') }}">Se connecter</a>
                                 </div>
                         {% endif %}
+                        </div>
                 </nav>
                 <div class="container">
                         {% if message is defined %}
