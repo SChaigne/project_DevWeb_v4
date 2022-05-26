@@ -1,0 +1,17 @@
+<!--<a href="{{path('app_article_show', {'id': article.id})}}">
+<h2>{{article.titre}}</h2>
+<p>{{article.content}}</p>
+<p>Auteur : {{article.idUser.login}}</p>
+<p>{{article.date ? article.date|date('d-m-Y H:i:s') : '' }}</p>
+</a>-->
+
+<div class="card w-75 m-3">
+  <div class="card-body">
+    <h5 class="card-title">{{article.titre}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Auteur : {{article.idUser.login}}</h6>
+    <p class="card-text">{{article.content}}</p>
+    <p class="card-text">Publié le : {{article.date ? article.date|date('d-m-Y H:i:s') : '' }}</p>
+    <a href="{{path('app_article_show', {'id': article.id})}}" class="card-link btn btn-sm btn-outline-primary">
+        Ajouter un commentaire</a>
+  </div>
+</div>

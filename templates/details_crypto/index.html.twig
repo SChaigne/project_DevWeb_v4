@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CryptoCurrency{% endblock %}
+{% block title %}Crypto{% endblock %}
 
 {% block body %}
-    <h1>CryptoCurrency</h1>
+    <h1 class="display-1 text-center">{{ crypto_currency.name }}</h1>
 
     {% if is_granted('ROLE_EXPERT') %}
-        <button><a href="{{path('app_article_new', {'id_crypto': crypto_currency.id})}}">
+        <a class="btn btn-outline-primary" href="{{path('app_article_new', {'id_crypto': crypto_currency.id})}}">
             Ajouter un article
-            </a>
-        </button>
+        </a>
     {% endif %}
 
     <table class="table">
@@ -45,16 +44,9 @@
         </tbody>
     </table>
 
-    <h1>Articles</h1>
+    <h1 class="display-2">Articles</h1>
     {% for article in articles %}
-        <a href="{{path('app_article_show', {'id': article.id})}}">
-        <h2>{{article.titre}}</h2>
-        <p>{{article.content}}</p>
-        <p>Auteur : {{article.idUser.login}}</p>
-        <p>{{article.date ? article.date|date('Y-m-d H:i:s') : '' }}</p>
-        </a>
+       {% include 'details_crypto/_articlesCrypto.html.twig' with {article: article} only %}
     {% endfor %}
-
-    <a href="{{ path('app_accueil') }}">back to list</a>
 
 {% endblock %}
