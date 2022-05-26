@@ -1,4 +1,8 @@
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Envoyer') }}</button>
+    <div class="w-75">
+        {{ form_widget(form) }}
+    </div>
+    <br>
+    <button class="btn btn-success w-50">{{ button_label|default('Envoyer') }}</button>
 {{ form_end(form) }}

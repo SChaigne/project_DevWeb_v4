@@ -3,48 +3,21 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <h2>{{article.idCrypto.name}}</h2>
-    <h1>{{article.titre}}</h1>
-    <p>{{article.content}}</p>
-    <p>Auteur : {{article.idUser.login}}</p>
-    <p>{{article.date ? article.date|date('Y-m-d H:i:s') : '' }}</p>
-
+    <h2 class="display-5">Crypto : {{article.idCrypto.name}}</h2>
+    <div class="d-flex justify-content-center">
+    <div class="border border-3 border-primary w-75 p-4">
+        <h1 class="text-center">{{article.titre}}</h1>
+        <p>{{article.content}}</p>
+        <h3>Auteur : {{article.idUser.login}}</p>
+        <h5>Publié le : {{article.date ? article.date|date('Y-m-d H:i:s') : '' }}</p>
+    </div>
+    </div>
+    <br>
     <h1>Commentaires</h1>
     {% for commentary in article.commentaries %}
-        <p>{{commentary.idUser.login}} : {{commentary.text}}</p>     
+        {% include 'commentary/show.html.twig' with {commentary: commentary} only %}
     {% endfor %}
 
     {{ include('commentary/_form.html.twig') }}
 
-    {#<table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ article.titre }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ article.content }}</td>
-            </tr>
-            <tr>
-                <th>NbLike</th>
-                <td>{{ article.nbLike }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_article_index') }}">back to list</a>
-
-    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-
-    {{ include('article/_delete_form.html.twig') }}
-    #}
 {% endblock %}
