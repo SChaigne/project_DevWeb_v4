@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
+<div class"container">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -10,15 +11,24 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputLogin">Login</label>
-    <input type="text" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <br>
+    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+    <br>
+    <div class="form-floating mb-3">
+        
+        <input type="text" class="form-control" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" autocomplete="username" placeholder="user_example" required autofocus>
+        <label for="inputLogin">Login</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        
+        <input type="password" class="form-control" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="mdp" required>
+        <label for="inputPassword">Mot de passe</label>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -34,9 +44,11 @@
             </label>
         </div>
     #}
+    <br>
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Connexion
     </button>
 </form>
+</div>
 {% endblock %}
