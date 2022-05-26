@@ -1,22 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
-
+{% form_theme registrationForm 'bootstrap_4_horizontal_layout.html.twig' %}
+<div class="text-center">
+    <h1 class="display-1">Inscription</h1>
+</div>
+<div class="d-flex justify-content-center">
+    <div class="w-50 p-3 border border-3 ">
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.login) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+        <div class="m-2">
+            {{ form_row(registrationForm.login) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe'
+            }) }}
+        </div>
+        
+        <div class="m-2">
+            {{ form_row(registrationForm.email) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.name, {
+                label: 'Nom'
+            }) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.lastname, {
+                label: 'Prénom'
+            }) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.birthday_date, {
+                label: 'Date de naissance'
+            }) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.adress, {
+                label: 'Adresse'
+            }) }}
+        </div>
+        <div class="m-2">
+            {{ form_row(registrationForm.phone_number, {
+                label: 'Numéro de téléphone'
+            }) }}
+        </div>
         {#{ form_row(registrationForm.agreeTerms) }#}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.name) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.adress) }}
-        {{ form_row(registrationForm.phone_number) }}
-        {{ form_row(registrationForm.birthday_date) }}
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-lg btn-success w-100">S'inscrire</button>
     {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}

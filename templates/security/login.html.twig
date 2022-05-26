@@ -11,20 +11,20 @@
 
     {% if app.user %}
         <div class="mb-3">
-            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
         </div>
     {% endif %}
 
     <br>
-    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+    <h1 class="display-1">Connexion</h1>
     <br>
-    <div class="form-floating mb-3">
+    <div class="w-50 form-floating mb-3">
         
         <input type="text" class="form-control" value="{{ last_username }}" name="login" id="inputLogin" class="form-control" autocomplete="username" placeholder="user_example" required autofocus>
         <label for="inputLogin">Login</label>
     </div>
 
-    <div class="form-floating mb-3">
+    <div class="w-50 form-floating mb-3">
         
         <input type="password" class="form-control" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="mdp" required>
         <label for="inputPassword">Mot de passe</label>
@@ -46,7 +46,7 @@
     #}
     <br>
 
-    <button class="btn btn-lg btn-primary" type="submit">
+    <button class="w-50 btn btn-lg btn-success" type="submit">
         Connexion
     </button>
 </form>
