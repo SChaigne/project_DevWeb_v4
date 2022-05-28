@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentary;
 use App\Form\CommentaryType;
 use App\Repository\CommentaryRepository;
+use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,9 @@ class CommentaryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $commentary->setIdUser($user);
+            // $commentary->setIdArticle($article);
             $commentaryRepository->add($commentary);
             return $this->redirectToRoute('app_commentary_index', [], Response::HTTP_SEE_OTHER);
         }

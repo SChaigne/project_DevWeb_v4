@@ -51,7 +51,7 @@ div{
             {{form_row(form.inputSearch )}}
         </div>
         <div id="categorie" class="CenterText">
-                <h4>Categories</4>
+                <h4>{{'Categories'|trans }}</4>
             <div class="categList row-inline">
                 {{form_row (form.category)}}
             </div>
@@ -59,7 +59,7 @@ div{
         </div>
         <div>
             <div  id="Price" class="CenterText">
-            <h4>Prix</h4>
+            <h4>{{'Prix'|trans }}</h4>
             </div>
             <div class="row-inlne">
                 <div class="col-md-2">
@@ -82,14 +82,14 @@ div{
         </div>
         </div>
         <div id="sortPrice" class="CenterText">
-            <h4>Trier</h4>
+            <h4>{{'Trier'|trans }}</h4>
             <div class="row">
             <div class="col-sm">
-            <h5> Par prix</h5>
+            <h5>{{'Par prix'|trans }}</h5>
                 {{form_row (form.orderPrice)}}
             </div>
             <div class="col-sm">
-            <h5> Par MarketCap</h5>
+            <h5> {{'Par MarketCap'|trans }}</h5>
                 {{form_row (form.orderPriceMarketCap)}}
                 </div>
                 </div>
@@ -97,7 +97,7 @@ div{
 
     </div>
         <div class="buttonFilter col-12">
-            <button type="submit" class ="btn btn-primary">Filtrer</button>
-            <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
+            <button type="submit" class ="btn btn-primary">{{'Filtrer'|trans }}</button>
+            <a href="{{ path('app_accueil') }}">{{'Supprimer les filtres'|trans }}</a>
         </div>
 {{form_end(form)}}

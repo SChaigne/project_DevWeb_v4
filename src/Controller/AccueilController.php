@@ -10,15 +10,16 @@ use App\Repository\CryptoCurrencyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Intl\Scripts;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 
 class AccueilController extends AbstractController
 {
     /**
      * @Route("/accueil", name="app_accueil")
      */
-    public function index(CryptoCurrencyRepository $cryptoRepository, Request $request): Response
+    public function index(CryptoCurrencyRepository $cryptoRepository, Request $request, TranslatorInterface $translator): Response
     {
 
         $data = new SearchData;

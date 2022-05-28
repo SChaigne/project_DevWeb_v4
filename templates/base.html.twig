@@ -37,23 +37,23 @@
                                         <img src="/img/logo_GC_bis.png" alt="logo" width="60" height="55" class="d-inline-block align-text-center">
 
                                 <h1>GroovyCrypto</h1></a>
-                        <a id="majCrypto" class="btn btn-outline-success" href="{{ path('maj_crypto_API') }}">Mettre à jour des cryptomonnaies</a>
+                        <a id="majCrypto" class="btn btn-outline-success" href="{{ path('maj_crypto_API') }}">{{'Mise à jour des cryptomonnaies'|trans }}</a>
 
                         {% if app.user %}
                                 {# Si l'utilisateur est authentifié #}
                                 {% if is_granted('ROLE_ADMIN') %}
                                         {# Si l'utilisateur est authentifié et qu'il est admin #}
-                                        <a class="btn btn-outline-warning" href="{{ path('admin') }}">Page admin</a>
+                                        <a class="btn btn-outline-warning" href="{{ path('admin') }}">{{'Administration'|trans }}</a>
                                 {% endif %}
                                 <div>
-                                        Login : {{ app.user.username }} 
-                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_abonnements') }}">Mes abonnements</a>
-                                        <a class="btn btn-lg btn-outline-danger" href="{{ path('app_logout') }}">Déconnexion</a>
+                                        <span style="margin-right: 10px; margin-left: ">{{ 'Bonjour'|trans }}  <b>{{ app.user.username }}</b></span>
+                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_abonnements') }}">{{'Mes abonnements'|trans }}</a>
+                                        <a class="btn btn-lg btn-outline-danger" href="{{ path('app_logout') }}">{{'Déconnexion'|trans }}</a>
                                 </div>
                         {% else %}
                                 <div>
-                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_register') }}">S'inscrire</a>
-                                        <a class="btn btn-lg btn-outline-success" href="{{ path('app_login') }}">Se connecter</a>
+                                        <a class="btn btn-lg btn-outline-primary" href="{{ path('app_register') }}">{{"S'inscrire"|trans }}</a>
+                                        <a class="btn btn-lg btn-outline-success" href="{{ path('app_login') }}">{{'Se connecter'|trans }}</a>
                                 </div>
                         {% endif %}
                         </div>

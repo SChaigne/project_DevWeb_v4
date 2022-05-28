@@ -1,0 +1,22 @@
+framework:
+  default_locale: en
+
+Bonjour: Hello
+Categorie: Categories
+Prix: Price
+Market Cap: Market Cap
+Trier: Sort
+Par prix: By price
+Par MarketCap: By MarketCap
+Mes abonnements: My subscribe
+Filtrer: Filter
+Supprimer les filtres: Delete filters
+S'inscire: Register
+Se connecter: Log In
+Administration: Administration
+Mise à jour des cryptomonnaies: Update cryptocurrency
+Déconnexion: Log out
+S'abonner: Subscribe
+Se désabonner: Unsubscribe
+Symbole: Symbol
+Nom: Name

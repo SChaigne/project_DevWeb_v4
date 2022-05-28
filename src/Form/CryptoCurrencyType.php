@@ -17,9 +17,7 @@ class CryptoCurrencyType extends AbstractType
             ->add('price')
             ->add('description')
             ->add('marketcap')
-            ->add('nb_follow_tt')
-            ->add('category')
-        ;
+            ->add('category');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

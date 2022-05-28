@@ -5,22 +5,20 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>GroovyCrypto </h1>
-
    <table class="table table-hover">
   <thead>
     <tr>
 
-      <th scope="col">Nom</th>
-      <th scope="col">Symbole</th>
-      <th scope="col">Price</th>
-      <th scope="col">Market Cap</th>
+      <th scope="col" class="CenterText">{{'Nom'|trans }}</th>
+      <th scope="col" class="CenterText">{{'Symbole'|trans }}</th>
+      <th scope="col" class="CenterText">{{'Prix'|trans }}</th>
+      <th scope="col" class="CenterText" >{{'Market Cap'|trans }}</th>
     </tr>
   </thead>
   <tbody>
 
     {% for crypto in cryptos %}
-    <tr class="table-secondary">
+    <tr class="table-secondary CenterText">
 
       <th scope="row"><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.name}}</a></th>
       <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.symbol}}</a></td>
@@ -42,10 +40,10 @@
           {#<td><button><a href="{{path('app_subscribe_delete', {'id': subId})}}">Se désabonner</a></button></td>#}
           <td>{{ include('subscribe/_delete_form.html.twig') }}</td>
         {% else %}
-          <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-primary">S'abonner</a></button></td>
+          <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-primary">{{"S'abonner"|trans }}</a></button></td>
         {% endif %}
       {% else %}
-        <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-light">S'abonner</a></button></td>
+        <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-light">{{"S'abonner"|trans }}</a></button></td>
       {% endif %}
     </tr>
     {% endfor %}

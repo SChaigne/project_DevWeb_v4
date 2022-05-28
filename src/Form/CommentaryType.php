@@ -13,8 +13,8 @@ class CommentaryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('text',TextareaType::class, ['label' => 'Ajouter un commentaire : '])
-            //->add('id_user')
+            ->add('text', TextareaType::class, ['label' => 'Ajouter un commentaire : '])
+            // ->add('id_user')
             //->add('id_article')
         ;
     }
