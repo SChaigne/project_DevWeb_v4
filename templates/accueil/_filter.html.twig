@@ -10,6 +10,7 @@
 }
 
 #category{
+    font-size: 15px;
 }
 
 #category_placeholder{
@@ -22,9 +23,13 @@ label{
 }
 
 h4{
+
     margin-top: 15px;
 }
 
+h5{
+    color: grey;
+}
 
 .CenterText{
     text-align: center;
@@ -34,14 +39,18 @@ h4{
     margin-top:15px;
     text-align:center;
 }
+
+div{
+    margin: 0 0 0 5px;
+}
 </style>
 
 {{form_start(form, {attr: {class :'filter'}})}}
-     <div id="filters" class="row">
+     <div id="filters" class="d-flex justify-content-center">
         <div id="recherche">
             {{form_row(form.inputSearch )}}
         </div>
-        <div id="categorie" class="">
+        <div id="categorie" class="CenterText">
                 <h4>Categories</4>
             <div class="categList row-inline">
                 {{form_row (form.category)}}
@@ -86,9 +95,9 @@ h4{
                 </div>
         </div>
 
+    </div>
         <div class="buttonFilter col-12">
             <button type="submit" class ="btn btn-primary">Filtrer</button>
             <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
         </div>
-    </div>
 {{form_end(form)}}

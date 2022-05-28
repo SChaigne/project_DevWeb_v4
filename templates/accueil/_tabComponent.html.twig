@@ -20,7 +20,7 @@
   <tbody>
 
     {% for crypto in cryptos %}
-    <tr class="table-primary">
+    <tr class="table-secondary">
 
       <th scope="row"><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.name}}</a></th>
       <td><a href="{{ path('app_details_crypto', {'id': crypto.id}) }}">{{crypto.symbol}}</a></td>
@@ -42,10 +42,10 @@
           {#<td><button><a href="{{path('app_subscribe_delete', {'id': subId})}}">Se désabonner</a></button></td>#}
           <td>{{ include('subscribe/_delete_form.html.twig') }}</td>
         {% else %}
-          <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}">S'abonner</a></button></td>
+          <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-primary">S'abonner</a></button></td>
         {% endif %}
       {% else %}
-        <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}">S'abonner</a></button></td>
+        <td><button><a href="{{path('app_subscribe_new', {'id_crypto': crypto.id})}}" class="btn btn-light">S'abonner</a></button></td>
       {% endif %}
     </tr>
     {% endfor %}

@@ -66,11 +66,9 @@ class CryptoCurrencyService
         $cryptoRepository->clearCryptoTable($emInsert);
         $cryptosData = $cryptoService->getAllCrypto()->data;
         foreach ($cryptosData as $crypto => $value) {
-            // $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)["data"];
-            $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0]; //TODO BTC A Variabilisé
+            $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0];
             $cryptoInsert = new CryptoCurrency();
             $cryptoInsert->setCategory($cryptoDetail->category);
-            // $cryptoInsert->setNbFollowTt();
             $cryptoInsert->setDescription($cryptoDetail->description);
             $cryptoInsert->setMarketcap($value->quote->EUR->market_cap);
             $cryptoInsert->setName($value->name);
