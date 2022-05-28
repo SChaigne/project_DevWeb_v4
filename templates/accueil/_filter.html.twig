@@ -1,33 +1,94 @@
+<style>
+#recherche{
+   display: flex;
+   align-items: center;
+}
+
+#categorie{
+   display: flex;
+   margin-left: 3%;
+}
+
+#category{
+}
+
+#category_placeholder{
+    color:red;
+    wrap: test;
+}
+
+label{
+    margin-top:25%;
+}
+
+h4{
+    margin-top: 15px;
+}
+
+
+.CenterText{
+    text-align: center;
+}
+
+.buttonFilter{
+    margin-top:15px;
+    text-align:center;
+}
+</style>
+
 {{form_start(form, {attr: {class :'filter'}})}}
-    {{form_row(form.inputSearch)}}
-
-    <h4>Categories</4>
-    {{form_row (form.category)}}
-    <h4>Prix</h4>
-    <div class="row">
-        <div class="col-md-2">
-            {{form_row (form.minPrice)}}
+     <div id="filters" class="row">
+        <div id="recherche">
+            {{form_row(form.inputSearch )}}
         </div>
-         <div class="col-md-2">
-            {{form_row (form.maxPrice)}}
+        <div id="categorie" class="">
+                <h4>Categories</4>
+            <div class="categList row-inline">
+                {{form_row (form.category)}}
+            </div>
+
+        </div>
+        <div>
+            <div  id="Price" class="CenterText">
+            <h4>Prix</h4>
+            </div>
+            <div class="row-inlne">
+                <div class="col-md-2">
+                    {{form_row (form.minPrice)}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row (form.maxPrice)}}
+                </div>
+            </div>
+        </div>
+        <div id="MarketCap" class="CenterText">
+            <h4>Market Cap</h4>
+                <div class="row-inlne">
+                <div class="col-md-2">
+                    {{form_row (form.minMarketCap)}}
+                </div>
+                <div class="col-md-2">
+                    {{form_row (form.maxMarketCap)}}
+                </div>
+        </div>
+        </div>
+        <div id="sortPrice" class="CenterText">
+            <h4>Trier</h4>
+            <div class="row">
+            <div class="col-sm">
+            <h5> Par prix</h5>
+                {{form_row (form.orderPrice)}}
+            </div>
+            <div class="col-sm">
+            <h5> Par MarketCap</h5>
+                {{form_row (form.orderPriceMarketCap)}}
+                </div>
+                </div>
+        </div>
+
+        <div class="buttonFilter col-12">
+            <button type="submit" class ="btn btn-primary">Filtrer</button>
+            <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
         </div>
     </div>
-    <h4>Market Cap</h4>
-        <div class="row">
-        <div class="col-md-2">
-            {{form_row (form.minMarketCap)}}
-        </div>
-         <div class="col-md-2">
-            {{form_row (form.maxMarketCap)}}
-        </div>
-    </div>
-    <h4>Sort Price</h4>
-        <h5> Par prix</h5>
-            {{form_row (form.orderPrice)}}
-        <h5> Par MarketCap</h5>
-            {{form_row (form.orderPriceMarketCap)}}
-
-
-    <button type="submit" class ="btn btn-primary w-20 ml-auto mt-2">Filtrer</button>
-    <a href="{{ path('app_accueil') }}">Supprimer les filtres</a>
 {{form_end(form)}}
