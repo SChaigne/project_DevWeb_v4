@@ -63,20 +63,38 @@ class CryptoCurrencyService
 
     public function insertDataAPIBD(CryptoCurrencyService $cryptoService, $emInsert, CryptoCurrencyRepository $cryptoRepository)
     {
-        $cryptoRepository->clearCryptoTable($emInsert);
+        // $cryptoRepository->clearCryptoTable($emInsert);
+        $i = 0;
+        $data = $emInsert->getReference('App\Entity\CryptoCurrency', 1);
         $cryptosData = $cryptoService->getAllCrypto()->data;
-        foreach ($cryptosData as $crypto => $value) {
-            $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0];
-            $cryptoInsert = new CryptoCurrency();
-            $cryptoInsert->setCategory($cryptoDetail->category);
-            $cryptoInsert->setDescription($cryptoDetail->description);
-            $cryptoInsert->setMarketcap($value->quote->EUR->market_cap);
-            $cryptoInsert->setName($value->name);
-            $cryptoInsert->setPrice($value->quote->EUR->price);
-            $cryptoInsert->setSymbol($value->symbol);
+        if ($data->getName() == null) {
+            foreach ($cryptosData as $crypto => $value) {
+                $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0];
+                $cryptoInsert = new CryptoCurrency();
+                $cryptoInsert->setCategory($cryptoDetail->category);
+                $cryptoInsert->setDescription($cryptoDetail->description);
+                $cryptoInsert->setMarketcap($value->quote->EUR->market_cap);
+                $cryptoInsert->setName($value->name);
+                $cryptoInsert->setPrice($value->quote->EUR->price);
+                $cryptoInsert->setSymbol($value->symbol);
 
-            $emInsert->persist($cryptoInsert);
-            $emInsert->flush();
+                $emInsert->persist($cryptoInsert);
+                $emInsert->flush();
+            }
+        } else {
+            foreach ($cryptosData as $crypto => $value) {
+                $i++;
+                $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0];
+                $CryptoUpdate = $emInsert->getReference('App\Entity\CryptoCurrency', $i);
+                $CryptoUpdate->setDescription($cryptoDetail->description);
+                $CryptoUpdate->setMarketcap($value->quote->EUR->market_cap);
+                $CryptoUpdate->setName($value->name);
+                $CryptoUpdate->setPrice($value->quote->EUR->price);
+                $CryptoUpdate->setSymbol($value->symbol);
+                $emInsert->persist($data);
+
+                $this->em->flush();
+            }
         }
     }
 }
