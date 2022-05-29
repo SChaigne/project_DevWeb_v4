@@ -66,6 +66,7 @@ class ArticleController extends AbstractController
 
         return $this->render('article/new.html.twig', [
             'article' => $article,
+            'crypto' => $crypto,
             'form' => $form->createView(),
         ]);
     }
