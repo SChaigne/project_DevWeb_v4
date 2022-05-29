@@ -3,15 +3,23 @@
 {% block title %}Hello NavigationController!{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_crypto_currency_index') }}">Crypto-Monnaie</a>
-    <br>
-    <a href="{{ path('app_user_index') }}">Utilisateur</a>
-    <br>
-    <a href="{{ path('app_article_index') }}">Article</a>
-    <br>
-    <a href="{{ path('app_commentary_index') }}">Commentaire</a>
 
+<h1>{{'Panel administrateur' |trans }}</h1>
+<style>
+    a.btn-dark{
+    margin: 5%
+}
+</style>
+<div class="d-flex justify-content-center">
+    <a href="{{ path('app_crypto_currency_index') }}" class="btn btn-dark">{{ 'Crypto monnaie'|trans }}</a>
+    <br>
+    <a href="{{ path('app_user_index') }}" class="btn btn-dark">{{'Utilisateur' |trans }}</a>
+    <br>
+    <a href="{{ path('app_article_index') }}" class="btn btn-dark">{{'Article'|trans }}</a>
+    <br>
+    <a href="{{ path('app_commentary_index') }}" class="btn btn-dark">{{ 'Commentaire'|trans }}</a>
 
+</div>
 
 
 

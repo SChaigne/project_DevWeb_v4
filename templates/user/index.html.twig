@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}{{ 'Utilisateur'|trans}}{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>{{ 'Utilisateur'|trans}}</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Adress</th>
-                <th>Phone_number</th>
-                <th>Birthday_date</th>
-                <th>IsExpert</th>
-                <th>Login</th>
-                <th>Password</th>
-                <th>Roles</th>
-                <th>actions</th>
+                <th>{{'Nom'|trans}}</th>
+                <th>{{'Prénom'|trans}}</th>
+                <th>{{'Email'|trans}}</th>
+                <th>{{'Adresse'|trans}}</th>
+                <th>{{'Numéro de téléphone'|trans}}</th>
+                <th>{{'Anniversaire'|trans}}</th>
+                {# <th>IsExpert</th> #}
+                <th>{{'Login'|trans}}</th>
+                {# <th>Password</th> #}
+                <th>{{'Roles'|trans}}</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,20 +34,26 @@
                 <td>{{ user.birthdayDate ? user.birthdayDate|date('Y-m-d') : '' }}</td>
                 {# <td>{{ user.isExpert ? 'Yes' : 'No' }}</td> #}
                 <td>{{ user.login }}</td>
-                <td>{{ user.password }}</td>
+                {# <td>{{ user.password }}</td> #}
                 <td>{{ user.roles[0] }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    {% if user.roles[0] == "ROLE_MEMBRE" %}
+                    <a href="{{path('app_change_expert', {'id': user.id}) }}"> {{'Mettre expert'|trans }}</a> | 
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_EXPERT" %}
+                    <a href="{{path('app_change_expert', {'id': user.id}) }}"> {{'Mettre membre'|trans }}</a> | 
+                    {% endif %}
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">{{ 'Détails'|trans }}</a> |
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">{{ 'Modification' |trans}}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="12">no records found</td>
+                <td colspan="12">{{'Pas de données'|trans}}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}">{{"Créer nouveau"|trans}}</a>
 {% endblock %}

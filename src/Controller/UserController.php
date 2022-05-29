@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 /**
@@ -84,6 +87,27 @@ class UserController extends AbstractController
             $userRepository->remove($user);
         }
 
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @Route("/changeExpert/{id}", name="app_change_expert")
+     * @ParamConverter("user", options={"id" = "user_id"})
+     */
+    public function ChangeExpert($id, UserRepository $userRepository, EntityManagerInterface $leEntityManager): Response
+    {
+        $user = $userRepository->findOneBy(['id' => $id]);
+        if ($user) {
+            if ($user->getRoles()[0] == "ROLE_MEMBRE" || $user->getRoles()[0] == "") {
+                $user->setRoles(['ROLE_EXPERT']);
+            } else {
+                if ($user->getRoles()[0] == "ROLE_EXPERT") {
+                    $user->setRoles(['ROLE_MEMBRE']);
+                }
+            }
+        }
+        $leEntityManager->persist($user);
+        $leEntityManager->flush();
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

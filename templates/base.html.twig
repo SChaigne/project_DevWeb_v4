@@ -37,6 +37,23 @@
                                         <img src="/img/logo_GC_bis.png" alt="logo" width="60" height="55" class="d-inline-block align-text-center">
 
                                 <h1>GroovyCrypto</h1></a>
+                        
+
+
+                {% if app.request.locale == 'en'  %}
+                        <a href="{{ path('change_locale', {'locale': 'fr'}) }}">{{ 'Fr'|trans }}</a>
+                {% else %}
+                      {% if app.request.locale == 'fr' %}
+                                <a href="{{ path('change_locale', {'locale': 'en'}) }}">                      <i class='bx bx-world nav_icon'></i>
+                      <span class="nav_name bx-fade-right-hover">{{ 'En'|trans }}</span> </a>
+                      {% else %}
+                        {% endif %}
+                {% endif %}
+
+
+
+
+
                         <a id="majCrypto" class="btn btn-outline-success" href="{{ path('maj_crypto_API') }}">{{'Mise à jour des cryptomonnaies'|trans }}</a>
 
                         {% if app.user %}
@@ -65,6 +82,8 @@
                                 </div>
                         {% endif %}
                         {% block body %}
+
+                 {% include '_locale_switcher.html.twig' %}
                         {% endblock %}
                 </div>
                 {% block javascripts %}

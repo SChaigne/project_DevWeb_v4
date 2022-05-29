@@ -12,12 +12,12 @@ class CommentaryFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $commentary = new Commentary();
-        $commentary->setText("Lorem Impsum n°", $commentary->getId());
-        $commentary->setIdUser(new User());
-        $commentary->setIdArticle(new Article());
-        $manager->persist($commentary);
+        // $commentary = new Commentary();
+        // $commentary->setText("Lorem Impsum n°", $commentary->getId());
+        // $commentary->setIdUser(new User());
+        // $commentary->setIdArticle(new Article());
+        // $manager->persist($commentary);
 
-        $manager->flush();
+        // $manager->flush();
     }
 }
