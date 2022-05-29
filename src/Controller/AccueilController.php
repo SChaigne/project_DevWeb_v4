@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Service\CryptoCurrencyService;
-use App\Entity\CryptoCurrency;
 use App\Form\SearchForm;
 use App\Repository\CryptoCurrencyRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +25,6 @@ class AccueilController extends AbstractController
         $form->handleRequest($request);
         $cryptos = $cryptoRepository->findSearch($data); // Recupère les données filter (toute si aucun filtre)
 
-        // XXX A ne pas décommenter sauf pour test
-        // dd($cryptos);
-        // $cryptos = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findAll(); //Get All Crypto from DB
-        // XXX
-
         $user = $this->getUser();
 
         return $this->render('accueil/index.html.twig', [
@@ -39,18 +33,6 @@ class AccueilController extends AbstractController
             'cryptos' => $cryptos,
             'form' => $form->createView()
         ]);
-    }
-
-    /**
-     * @Route("/change_locale/{locale}", name="change_locale")
-     */
-    public function changeLocale($locale, Request $request)
-    {
-        // On stocke la langue dans la session
-        $request->getSession()->set('_locale', $locale);
-
-        // On revient sur la page précédente
-        return $this->redirect($request->headers->get('referer'));
     }
 
     /**

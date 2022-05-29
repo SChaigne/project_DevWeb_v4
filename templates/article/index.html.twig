@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Articles{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+    <h1>Tous les articles</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Auteur</th>
+                <th>Crypto</th>
                 <th>Titre</th>
-                <th>Content</th>
-                <th>NbLike</th>
+                {#<th>Contenu</th>#}
                 <th>Date</th>
                 <th>actions</th>
             </tr>
@@ -20,22 +21,21 @@
         {% for article in articles %}
             <tr>
                 <td>{{ article.id }}</td>
+                <td>{{article.idUser.login}}</td>
+                <td>{{article.idCrypto.name}}</td>
                 <td>{{ article.titre }}</td>
-                <td>{{ article.content }}</td>
-                <td>{{ article.nbLike }}</td>
+                {#<td>{{ article.content }}</td>#}
                 <td>{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+                    <a href="{{ path('app_article_show', {'id': article.id}) }}">détails</a>
+                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">éditer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun article trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_article_new') }}">Creer un nouvel article</a>
 {% endblock %}

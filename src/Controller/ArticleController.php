@@ -49,7 +49,6 @@ class ArticleController extends AbstractController
         }
 
         // ON RECUPERE LA CRYPTO
-        // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
         $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
