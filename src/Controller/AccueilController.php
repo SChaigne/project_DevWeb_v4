@@ -27,7 +27,11 @@ class AccueilController extends AbstractController
         $form->handleRequest($request);
         $cryptos = $cryptoRepository->findSearch($data); // Recupère les données filter (toute si aucun filtre)
 
-        $cryptos = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findAll(); //Get All Crypto from DB
+        // XXX A ne pas décommenter sauf pour test
+        // dd($cryptos);
+        // $cryptos = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findAll(); //Get All Crypto from DB
+        // XXX
+
         $user = $this->getUser();
 
         return $this->render('accueil/index.html.twig', [
