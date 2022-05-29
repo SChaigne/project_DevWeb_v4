@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/admin/crypto/currency")
+ * @Route("{_locale}/admin/crypto/currency")
  * 
  */
 class CryptoCurrencyController extends AbstractController

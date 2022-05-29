@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailsCryptoController extends AbstractController
 {
     /**
-     * @Route("/details/{id}", name="app_details_crypto", methods={"GET"})
+     * @Route("/{_locale}details/{id}", name="app_details_crypto", methods={"GET"})
      */
     public function index(CryptoCurrency $cryptoCurrency): Response
     {

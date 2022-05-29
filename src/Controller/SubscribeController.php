@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/subscribe")
+ * @Route("{_locale}/subscribe")
  */
 class SubscribeController extends AbstractController
 {
@@ -22,7 +22,7 @@ class SubscribeController extends AbstractController
     public function index(SubscribeRepository $subscribeRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        
+
         return $this->render('subscribe/index.html.twig', [
             'subscribes' => $subscribeRepository->findAll(),
         ]);
@@ -39,11 +39,11 @@ class SubscribeController extends AbstractController
             $this->denyAccessUnlessGranted('ROLE_MEMBRE');
         } catch (\Throwable $th) {
             //throw $th;
-            if(!$user){
+            if (!$user) {
                 return $this->redirectToRoute('app_login');
-            }else{
+            } else {
                 return $this->redirectToRoute('app_accueil');
-            }   
+            }
         }
 
         // ON RECUPERE LA CRYPTO
@@ -102,12 +102,12 @@ class SubscribeController extends AbstractController
             $this->denyAccessUnlessGranted('ROLE_MEMBRE');
         } catch (\Throwable $th) {
             //throw $th;
-            if(!$user){
+            if (!$user) {
                 return $this->redirectToRoute('app_login');
-            }else{
+            } else {
                 //mettre un petit truc qui dit que c'est impossible de supprimer l'abonnement
                 return $this->redirectToRoute('app_accueil');
-            }   
+            }
         }
 
         if ($this->isCsrfTokenValid('delete' . $subscribe->getId(), $request->request->get('_token'))) {

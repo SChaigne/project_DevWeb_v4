@@ -17,11 +17,10 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class AccueilController extends AbstractController
 {
     /**
-     * @Route("/accueil", name="app_accueil")
+     * @Route("{_locale}/accueil", name="app_accueil")
      */
     public function index(CryptoCurrencyRepository $cryptoRepository, Request $request, TranslatorInterface $translator): Response
     {
-
         $data = new SearchData;
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
@@ -64,10 +63,6 @@ class AccueilController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         // $cryptoRepository->resetDatabase($em);
         $cryptoService->insertDataAPIBD($cryptoService, $em, $cryptoRepository);
-
-?>
-        <script>
-            window.location.replace('/accueil');
-        </script> <?php
-                }
-            }
+        return $this->redirectToRoute('app_accueil');
+    }
+}

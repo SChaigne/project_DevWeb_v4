@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
- * @Route("/admin/user")
+ * @Route("{_locale}/admin/user")
  */
 class UserController extends AbstractController
 {

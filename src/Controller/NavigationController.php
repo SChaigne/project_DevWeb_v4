@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class NavigationController extends AbstractController // https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/symfony-securitybundle-auth.html
 {
     /**
-     * @Route("/navigation", name="app_navigation")
+     * @Route("{_locale}/navigation", name="app_navigation")
      */
     public function index(): Response
     {

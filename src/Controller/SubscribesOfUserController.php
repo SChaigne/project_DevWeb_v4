@@ -7,8 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/profil")
- */ 
+ * @Route("{_locale}/profil")
+ */
 class SubscribesOfUserController extends AbstractController
 {
     /**
@@ -17,17 +17,16 @@ class SubscribesOfUserController extends AbstractController
     public function index(): Response
     {
         $user = $this->getUser();
-        if(!$user){
+        if (!$user) {
             return $this->redirectToRoute('app_login');
         }
 
         $subUser = $user->getSubscribes();
         $cryptoUser = array();
-        foreach($subUser as $sub){
-            foreach($sub->getIdCrypto() as $cryptoSub){
-                array_push($cryptoUser,$cryptoSub);
+        foreach ($subUser as $sub) {
+            foreach ($sub->getIdCrypto() as $cryptoSub) {
+                array_push($cryptoUser, $cryptoSub);
             }
-            
         }
 
         return $this->render('subscribes_of_user/index.html.twig', [

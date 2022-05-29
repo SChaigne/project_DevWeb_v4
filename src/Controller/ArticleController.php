@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/article")
+ * @Route("{_locale}/article")
  */
 class ArticleController extends AbstractController
 {
@@ -41,13 +41,13 @@ class ArticleController extends AbstractController
             $this->denyAccessUnlessGranted('ROLE_EXPERT');
         } catch (\Throwable $th) {
             //throw $th;
-            if(!$user){
+            if (!$user) {
                 return $this->redirectToRoute('app_login');
-            }else{
+            } else {
                 return $this->redirectToRoute('app_accueil');
-            }   
+            }
         }
-        
+
         // ON RECUPERE LA CRYPTO
         // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
         $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
@@ -56,8 +56,8 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            
+
+
             $article->setIdUser($user);
             $article->setIdCrypto($crypto);
             $articleRepository->add($article);
@@ -81,19 +81,19 @@ class ArticleController extends AbstractController
             $this->denyAccessUnlessGranted('ROLE_MEMBRE');
         } catch (\Throwable $th) {
             //throw $th;
-            if(!$user){
+            if (!$user) {
                 return $this->redirectToRoute('app_login');
-            }else{
+            } else {
                 return $this->redirectToRoute('app_accueil');
-            }   
+            }
         }
 
         // AJOUT DES COMMENTAIRES DIRECTEMENT AVEC L'ARTICLE
         $commentary = new Commentary();
         $form = $this->createForm(CommentaryType::class, $commentary);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid() ) { 
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $commentary->setIdArticle($article);
             $commentary->setIdUser($user);
 
@@ -133,7 +133,7 @@ class ArticleController extends AbstractController
     public function delete(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
         $this->denyAccessUnlessGranted('ROLE_EXPERT');
-        
+
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->request->get('_token'))) {
             $articleRepository->remove($article);
         }

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/commentary")
+ * @Route("{_locale}/admin/commentary")
  */
 class CommentaryController extends AbstractController
 {
