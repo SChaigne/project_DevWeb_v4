@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentary index{% endblock %}
+{% block title %}Commentaires{% endblock %}
 
 {% block body %}
-    <h1>Commentary index</h1>
+    <h1>Tous les commentaires</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Text</th>
+                <th>Auteur</th>
+                <th>Article</th>
+                <th>Texte</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,15 +19,17 @@
         {% for commentary in commentaries %}
             <tr>
                 <td>{{ commentary.id }}</td>
+                <td>{{commentary.idUser.login}}</td>
+                <td>{{commentary.idArticle.titre}}</td>
                 <td>{{ commentary.text }}</td>
                 <td>
-                    <a href="{{ path('app_commentary_show', {'id': commentary.id}) }}">show</a>
-                    <a href="{{ path('app_commentary_edit', {'id': commentary.id}) }}">edit</a>
+                    {#<a href="{{ path('app_commentary_show', {'id': commentary.id}) }}">détails</a>#}
+                    <a href="{{ path('app_commentary_edit', {'id': commentary.id}) }}">éditer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucun commentaires trouvé</td>
             </tr>
         {% endfor %}
         </tbody>

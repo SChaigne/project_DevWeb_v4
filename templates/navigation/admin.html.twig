@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1>{{'Panel administrateur' |trans }}</h1>
+<h1 class="display-1">{{'Panel administrateur' |trans }}</h1>
 <style>
     a.btn-dark{
     margin: 5%
@@ -13,11 +13,11 @@
 <div class="d-flex justify-content-center">
     <a href="{{ path('app_crypto_currency_index') }}" class="btn btn-dark">{{ 'Crypto monnaie'|trans }}</a>
     <br>
-    <a href="{{ path('app_user_index') }}" class="btn btn-dark">{{'Utilisateur' |trans }}</a>
+    <a href="{{ path('app_user_index') }}" class="btn btn-dark">{{'Utilisateurs' |trans }}</a>
     <br>
-    <a href="{{ path('app_article_index') }}" class="btn btn-dark">{{'Article'|trans }}</a>
+    <a href="{{ path('app_article_index') }}" class="btn btn-dark">{{'Articles'|trans }}</a>
     <br>
-    <a href="{{ path('app_commentary_index') }}" class="btn btn-dark">{{ 'Commentaire'|trans }}</a>
+    <a href="{{ path('app_commentary_index') }}" class="btn btn-dark">{{ 'Commentaires'|trans }}</a>
 
 </div>
 
