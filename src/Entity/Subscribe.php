@@ -19,6 +19,8 @@ class Subscribe
      */
     private $id;
 
+    // RELATIONS AURAIENT DU ETRE REFAITES MAIS PB TECHNIQUE 
+    // => Impossible de créer ou modifier une entitée
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="subscribes")
      */

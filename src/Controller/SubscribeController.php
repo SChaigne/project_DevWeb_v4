@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SubscribeController extends AbstractController
 {
+    // NON UTILISER
     /**
      * @Route("/", name="app_subscribe_index", methods={"GET"})
      */
@@ -28,6 +29,8 @@ class SubscribeController extends AbstractController
         ]);
     }
 
+
+    // S'ABONNER
     /**
      * @Route("/new/{id_crypto}", name="app_subscribe_new", methods={"GET", "POST"})
      */
@@ -47,7 +50,6 @@ class SubscribeController extends AbstractController
         }
 
         // ON RECUPERE LA CRYPTO
-        // (normalement il y a un moyen plus simple de le faire mais j'y arrive pas...)
         $crypto = $this->getDoctrine()->getRepository(CryptoCurrency::class)->findOneBy(['id' => $id_crypto]);
         $subscribe = new Subscribe();
         $subscribe->addIdUser($user);
@@ -57,6 +59,7 @@ class SubscribeController extends AbstractController
         // return $this->redirectToRoute('app_subscribe_index', [], Response::HTTP_SEE_OTHER);
         return $this->redirectToRoute('app_accueil', [], Response::HTTP_SEE_OTHER);
     }
+
 
     /**
      * @Route("/{id}", name="app_subscribe_show", methods={"GET"})
@@ -70,6 +73,7 @@ class SubscribeController extends AbstractController
         ]);
     }
 
+    // NON UTILISER
     /**
      * @Route("/{id}/edit", name="app_subscribe_edit", methods={"GET", "POST"})
      */
@@ -91,6 +95,8 @@ class SubscribeController extends AbstractController
         ]);
     }
 
+
+    // SE DESABONNER
     /**
      * @Route("/delete/{id}", name="app_subscribe_delete", methods={"GET", "POST"})
      */

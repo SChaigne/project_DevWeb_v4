@@ -21,12 +21,9 @@ class SearchForm extends AbstractType
     {
         $this->cryptosCategories = $cryptoRepository->createQueryBuilder('Crypto')->select('Crypto.category')->distinct()->getQuery()->getResult();
 
-        // dd($this->cryptosCategories[0]["category"]);
-
         foreach ($this->cryptosCategories as $categ => $value) {
             $this->newtabCategories[$value["category"]] = $value["category"];
         }
-        // dd($newtabCategories);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
