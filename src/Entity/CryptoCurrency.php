@@ -17,12 +17,12 @@ class CryptoCurrency
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    public $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

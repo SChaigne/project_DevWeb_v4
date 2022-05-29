@@ -20,7 +20,7 @@ class CryptoCurrencyService
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=15&convert=EUR', //TODO A METTRE LA LIMIT A 5
+            CURLOPT_URL => 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?start=1&limit=10&convert=EUR', //TODO A METTRE LA LIMIT A 5
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -63,11 +63,13 @@ class CryptoCurrencyService
 
     public function insertDataAPIBD(CryptoCurrencyService $cryptoService, $emInsert, CryptoCurrencyRepository $cryptoRepository)
     {
-        // $cryptoRepository->clearCryptoTable($emInsert);
         $i = 0;
-        $data = $emInsert->getReference('App\Entity\CryptoCurrency', 1);
+        $getOneCryptoToCheck = $emInsert->find('App\Entity\CryptoCurrency', 1);
+        // dd($getOneCryptoToCheck);
         $cryptosData = $cryptoService->getAllCrypto()->data;
-        if ($data->getName() == null) {
+
+
+        if (!isset($getOneCryptoToCheck)) {
             foreach ($cryptosData as $crypto => $value) {
                 $cryptoDetail = $cryptoService->getDetailCrypto($value->symbol)->data->{$value->symbol}[0];
                 $cryptoInsert = new CryptoCurrency();
@@ -91,7 +93,7 @@ class CryptoCurrencyService
                 $CryptoUpdate->setName($value->name);
                 $CryptoUpdate->setPrice($value->quote->EUR->price);
                 $CryptoUpdate->setSymbol($value->symbol);
-                $emInsert->persist($data);
+                $emInsert->persist($getOneCryptoToCheck);
 
                 $this->em->flush();
             }
