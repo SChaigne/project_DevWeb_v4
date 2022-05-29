@@ -13,8 +13,9 @@
 6. Créer le schéma de la base : php bin/console d:s:c
 7. Ajouter des données via les fixtures (uniquement les utilisateur) : php bin/console doctrine:fixtures:load
 8. Toujours dans la répertoire du projet, lancer le serveur local avec : **symfony server:start**
-9. Se rendre dans un navigateur à l'adresse indiquée par Symfony (souvent *http://127.0.0.1:8000/*)
-10. Vous êtes sur notre site web intitulé **"GroovyCrypto"** !
+10. Se rendre dans un navigateur à l'adresse indiquée par Symfony (souvent *http://127.0.0.1:8000/*)
+11. Vous êtes sur notre site web intitulé **"GroovyCrypto"** !
+12. Pensez à mettre à jour les crypto-monnaies pour récupérer les données
 
 Les utilisateurs créer avec les fixtures
 login : admin
