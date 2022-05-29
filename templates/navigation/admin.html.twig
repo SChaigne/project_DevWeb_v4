@@ -1,22 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NavigationController!{% endblock %}
+{% block title %}Administrateur{% endblock %}
 
 {% block body %}
 
 <h1 class="display-1">{{'Panel administrateur' |trans }}</h1>
-<style>
-    a.btn-dark{
-    margin: 5%
-}
-</style>
-<div class="d-flex justify-content-center">
-    <a href="{{ path('app_user_index') }}" class="btn btn-dark">{{'Utilisateurs' |trans }}</a>
-    <br>
-    <a href="{{ path('app_article_index') }}" class="btn btn-dark">{{'Articles'|trans }}</a>
-    <br>
-    <a href="{{ path('app_commentary_index') }}" class="btn btn-dark">{{ 'Commentaires'|trans }}</a>
-
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a href="{{ path('app_user_index') }}" class="btn btn-lg btn-outline-primary w-100 m-4">{{'Utilisateurs' |trans }}</a>
+    <a href="{{ path('app_article_index') }}" class="btn btn-lg btn-outline-primary w-100 m-4">{{'Articles'|trans }}</a>
+    <a href="{{ path('app_commentary_index') }}" class="btn btn-lg btn-outline-primary w-100 m-4">{{ 'Commentaires'|trans }}</a>
 </div>
 
 
