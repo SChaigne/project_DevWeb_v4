@@ -9,5 +9,6 @@
 </style>
 
   {% include 'accueil/_filter.html.twig' with {form: form} only %}
+  <a href='{{ path('app_stat') }}' class="btn btn-outline-primary">Interval de marketcap</a>
   {% include 'accueil/_tabComponent.html.twig' with {cryptos: cryptos, user: user} only %}
 {% endblock %}

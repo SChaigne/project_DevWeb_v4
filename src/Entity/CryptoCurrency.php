@@ -40,7 +40,7 @@ class CryptoCurrency
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $marketcap;
 

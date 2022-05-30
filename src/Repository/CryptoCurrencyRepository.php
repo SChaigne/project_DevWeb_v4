@@ -75,6 +75,41 @@ class CryptoCurrencyRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
+
+    /**
+     * Récupère les crypto inférieur a 50Md du marketcap
+     * @return CryptoCurrency[]
+     */
+    public function findMCInf500MM(): array
+    {
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto')->andWhere('Crypto.marketcap < 50000000000');
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Récupère les crypto de 50Md à 500Md du marketcap
+     * @return CryptoCurrency[]
+     */
+    public function findMCmin50Max500(): array
+    {
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto')->andWhere('Crypto.marketcap > 50000000000')->andWhere('Crypto.marketcap < 500000000000');
+
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * Récupère les crypto supérieur à 500Md du marketcap
+     * @return CryptoCurrency[]
+     */
+    public function findMCSup500(): array
+    {
+        $query = $this->createQueryBuilder('Crypto')->select('Crypto')->andWhere('Crypto.marketcap > 500000000000');
+
+        return $query->getQuery()->getResult();
+    }
+
+
     /**
      * Récupère le prix minimum et maximum correspondant à une recherche
      * @return integer[]
